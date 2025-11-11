@@ -11,12 +11,13 @@ const Prompt = () => {
     setUserPrompt(e.target.value);
   };
 
-  const handleSend = () => {
-    handleInput(userPrompt);
+  const handleSend = async () => {
+    // handleInput(userPrompt);
     setLoading(true);
-    setTimeout(() => {
-      navigate('/test');
-    }, 2000);
+    const genText = await handleInput(userPrompt);
+    console.log(genText);
+
+    navigate('/test', { state: { toType: genText } });
   };
 
   const handleKeyDown = (e) => {
