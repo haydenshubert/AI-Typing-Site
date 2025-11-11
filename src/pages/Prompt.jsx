@@ -1,11 +1,11 @@
 import { useState } from 'react';
-// import { useNavigate } from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import { handleInput } from '../services/OllamaAPI';
 
 const Prompt = () => {
   const [userPrompt, setUserPrompt] = useState('');
   const [loading, setLoading] = useState(false);
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setUserPrompt(e.target.value);
@@ -14,6 +14,9 @@ const Prompt = () => {
   const handleSend = () => {
     handleInput(userPrompt);
     setLoading(true);
+    setTimeout(() => {
+      navigate('/test');
+    }, 2000);
   };
 
   const handleKeyDown = (e) => {
