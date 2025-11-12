@@ -27,7 +27,7 @@ const Prompt = () => {
   };
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-200">
+    <div className="flex min-h-screen flex-col items-center bg-gray-200">
       {!loading ? (
         <>
           <p>Enter prompt here: </p>
@@ -37,13 +37,13 @@ const Prompt = () => {
             onKeyDown={handleKeyDown}
             type="text"
             placeholder="Enter prompt ..."
-            className="border-2 border-blue-400 rounded-md mt-36"
+            className="mt-36 rounded-md border-2 border-blue-400"
           ></input>
           <button onClick={handleSend}>Send prompt</button>
         </>
       ) : (
         <div className="flex flex-col items-center">
-          <p className="text-xl animate-pulse">Loading...</p>
+          <p className="animate-pulse text-xl">Loading...</p>
         </div>
       )}
     </div>
