@@ -35,6 +35,7 @@ const Prompt = () => {
             value={userPrompt}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
+            maxLength={50}
             type="text"
             placeholder="Enter prompt ..."
             className="mt-36 rounded-md border-2 border-blue-400"

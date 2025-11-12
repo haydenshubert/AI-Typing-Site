@@ -1,26 +1,64 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Test = () => {
   const location = useLocation();
   const toType = location.state?.toType || 'ERROR: No generated text';
   const words = toType.split(' ');
-  const [currentIndex, setCurrentIndex] = useState(0);
 
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [ready, setReady] = useState(false);
   const [inputValue, setInputValue] = useState('');
+  const [time, setTime] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [timerDone, setTimerDone] = useState(false);
+  const [errorsTyped, setErrorsTyped] = useState(0);
+  const [wordsTyped, setWordsTyped] = useState(0);
+
+  useEffect(() => {
+    let timer;
+    if (isRunning) {
+      timer = setInterval(() => {
+        setTime((prev) => {
+          if (prev >= 5) {
+            setIsRunning(false);
+            setIsDisabled(true);
+            clearInterval(timer);
+            setTimerDone(true);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [isRunning]);
+
+  useEffect(() => {
+    if (timerDone) {
+      calcResults();
+    }
+  });
 
   const handleKeyDown = (e) => {
+    if (!isRunning) setIsRunning(true);
     if (e.key === ' ') {
       e.preventDefault(); // Prevents extra spaces
-      // words typed + 1 after space //
+
       // Check if word is typed correctly
       if (inputValue.trim() !== words[currentIndex]) {
-        console.log('Error + 1');
+        setErrorsTyped((prev) => prev + 1);
       }
+      setWordsTyped((prev) => prev + 1);
       setInputValue(''); // Reset input
       setCurrentIndex(currentIndex + 1); // On to next word
     }
+  };
+
+  const calcResults = () => {
+    console.log('Total errors: ' + errorsTyped);
+    console.log('Words typed: ' + wordsTyped);
   };
 
   return (
@@ -61,11 +99,13 @@ const Test = () => {
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleKeyDown}
           autoFocus
+          disabled={isDisabled}
           placeholder="Start typing..."
           spellCheck="false"
           className="h-12 w-64 rounded-lg border-2 border-blue-400 bg-white text-lg"
         ></input>
       )}
+      <p>Time: {time}s</p>
     </div>
   );
 };

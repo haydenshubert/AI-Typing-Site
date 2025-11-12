@@ -3,7 +3,10 @@ export async function handleInput(text) {
 
   const obj = {
     model: 'llama3.2',
-    prompt: text,
+    prompt:
+      'I want you to make a one block paragraph which will be used for a typing speed test and you should have 150 to 200 words in your generated response. Only respond with the one block paragraph based on this prompt: ' +
+      text +
+      ', and nothing else. This will be used for a typing speed test so make it in that format.',
     stream: false,
   };
 
