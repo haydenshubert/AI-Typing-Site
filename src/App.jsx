@@ -7,7 +7,7 @@ import Prompt from './pages/Prompt';
 function App() {
   return (
     <Router>
-      <nav className="flex place-content-center">
+      <nav className="flex place-content-center bg-gray-200">
         <Link to="/test" className="m-1.5 border hover:bg-green-300">
           Test
         </Link>

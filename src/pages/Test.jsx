@@ -14,6 +14,7 @@ const Test = () => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [timerDone, setTimerDone] = useState(false);
   const [errorsTyped, setErrorsTyped] = useState(0);
+  const [wordStatus, setWordStatus] = useState([]);
   const [wordsTyped, setWordsTyped] = useState(0);
 
   useEffect(() => {
@@ -21,6 +22,7 @@ const Test = () => {
     if (isRunning) {
       timer = setInterval(() => {
         setTime((prev) => {
+          // Change value for time (60 is a minute)
           if (prev >= 5) {
             setIsRunning(false);
             setIsDisabled(true);
@@ -47,9 +49,11 @@ const Test = () => {
       e.preventDefault(); // Prevents extra spaces
 
       // Check if word is typed correctly
-      if (inputValue.trim() !== words[currentIndex]) {
-        setErrorsTyped((prev) => prev + 1);
-      }
+      const correct = inputValue.trim() === words[currentIndex];
+
+      setWordStatus((prev) => [...prev, correct ? 'correct' : 'wrong']);
+      if (!correct) setErrorsTyped((prev) => prev + 1);
+
       setWordsTyped((prev) => prev + 1);
       setInputValue(''); // Reset input
       setCurrentIndex(currentIndex + 1); // On to next word
@@ -69,11 +73,13 @@ const Test = () => {
             key={i}
             className={
               'mx-1 text-lg' +
-              (i < currentIndex
-                ? 'mx-1 text-lg text-gray-400'
-                : i === currentIndex
-                  ? 'mx-1 text-lg text-blue-600 underline'
-                  : '')
+              (i === currentIndex
+                ? 'mx-1 text-lg text-blue-600 underline'
+                : i < currentIndex
+                  ? wordStatus[i] === 'correct'
+                    ? 'mx-1 text-lg text-gray-400'
+                    : 'mx-1 text-lg text-red-400'
+                  : 'mx-1 text-lg text-black')
             }
           >
             {word}{' '}

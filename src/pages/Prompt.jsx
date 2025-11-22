@@ -27,20 +27,29 @@ const Prompt = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-gray-200">
+    <div className="flex min-h-screen flex-col items-center bg-gray-200 pt-24">
       {!loading ? (
         <>
-          <p>Enter prompt here: </p>
+          <p className="text-xl">
+            Enter prompt here
+            <br />
+            (50 character limit):
+          </p>
           <input
             value={userPrompt}
             onChange={handleChange}
             onKeyDown={handleKeyDown}
             maxLength={50}
             type="text"
-            placeholder="Enter prompt ..."
-            className="mt-36 rounded-md border-2 border-blue-400"
+            placeholder="Prompt..."
+            className="mt-6 rounded-md border-2 border-blue-400 p-2 text-xl"
           ></input>
-          <button onClick={handleSend}>Send prompt</button>
+          <button
+            className="mt-3 rounded-2xl border p-2 text-xl"
+            onClick={handleSend}
+          >
+            Send prompt
+          </button>
         </>
       ) : (
         <div className="flex flex-col items-center">
