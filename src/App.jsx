@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Test from './pages/Test';
 import Prompt from './pages/Prompt';
+import Results from './pages/Results';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         <Link to="/home" className="m-1.5 border hover:bg-green-300">
           Home
         </Link>
+        <Link to="/results" className="m-1.5 border hover:bg-green-300">
+          Results
+        </Link>
       </nav>
 
       <Routes>
@@ -24,6 +28,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/test" element={<Test />} />
         <Route path="/prompt" element={<Prompt />} />
+        <Route path="/results" element={<Results />} />
       </Routes>
     </Router>
   );

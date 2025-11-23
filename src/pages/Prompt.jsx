@@ -12,10 +12,8 @@ const Prompt = () => {
   };
 
   const handleSend = async () => {
-    // handleInput(userPrompt);
     setLoading(true);
     const genText = await handleInput(userPrompt);
-    console.log(genText);
 
     navigate('/test', { state: { toType: genText } });
   };

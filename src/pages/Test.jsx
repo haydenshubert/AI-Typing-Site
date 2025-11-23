@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Test = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const toType = location.state?.toType || 'ERROR: No generated text';
   const words = toType.split(' ');
 
@@ -12,7 +14,6 @@ const Test = () => {
   const [time, setTime] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [timerDone, setTimerDone] = useState(false);
   const [errorsTyped, setErrorsTyped] = useState(0);
   const [wordStatus, setWordStatus] = useState([]);
   const [wordsTyped, setWordsTyped] = useState(0);
@@ -23,11 +24,10 @@ const Test = () => {
       timer = setInterval(() => {
         setTime((prev) => {
           // Change value for time (60 is a minute)
-          if (prev >= 5) {
+          if (prev >= 60) {
             setIsRunning(false);
             setIsDisabled(true);
             clearInterval(timer);
-            setTimerDone(true);
             return prev;
           }
           return prev + 1;
@@ -36,12 +36,6 @@ const Test = () => {
     }
     return () => clearInterval(timer);
   }, [isRunning]);
-
-  useEffect(() => {
-    if (timerDone) {
-      calcResults();
-    }
-  });
 
   const handleKeyDown = (e) => {
     if (!isRunning) setIsRunning(true);
@@ -61,19 +55,19 @@ const Test = () => {
   };
 
   const calcResults = () => {
-    console.log('Total errors: ' + errorsTyped);
-    console.log('Words typed: ' + wordsTyped);
+    // Redirect to results page bringing: errors, words typed, and generated text
+    navigate('/results', { state: { errorsTyped, wordsTyped, toType } });
   };
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-gray-200">
-      <section className="m-9 flex w-xl flex-wrap items-center rounded-lg border-2 bg-gray-300">
+      <section className="mt-9 flex w-xl flex-wrap items-center rounded-lg border-2 bg-gray-300">
         {words.map((word, i) => (
           <span
             key={i}
             className={
               'mx-1 text-lg' +
-              (i === currentIndex
+              (i === currentIndex // Handles coloring of words
                 ? 'mx-1 text-lg text-blue-600 underline'
                 : i < currentIndex
                   ? wordStatus[i] === 'correct'
@@ -90,7 +84,7 @@ const Test = () => {
       {!ready ? (
         <>
           <button
-            className="mt-4 w-16 border-2 border-gray-800 bg-blue-500 font-bold text-white"
+            className="mt-12 w-16 rounded-lg border-2 border-gray-800 bg-blue-500 p-0.5 text-xl font-bold text-white hover:bg-blue-400"
             onClick={() => {
               setReady(true);
             }}
@@ -99,7 +93,7 @@ const Test = () => {
           </button>
         </>
       ) : (
-        <input
+        <input // Timer starts when first key pressed
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -108,10 +102,18 @@ const Test = () => {
           disabled={isDisabled}
           placeholder="Start typing..."
           spellCheck="false"
-          className="h-12 w-64 rounded-lg border-2 border-blue-400 bg-white text-lg"
+          className="mt-8 h-12 w-64 rounded-lg border-2 border-blue-400 bg-white text-lg"
         ></input>
       )}
-      <p>Time: {time}s</p>
+      <p className="mt-1 text-lg font-bold">Time: {time}s</p>
+      {isDisabled && (
+        <button
+          onClick={() => calcResults()}
+          className="mt-3 w-30 rounded-lg border-2 border-gray-800 bg-blue-500 p-0.5 text-xl font-bold text-white hover:bg-blue-400"
+        >
+          See Results
+        </button>
+      )}
     </div>
   );
 };

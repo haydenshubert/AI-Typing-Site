@@ -3,10 +3,17 @@ export async function handleInput(text) {
 
   const obj = {
     model: 'llama3.2',
-    prompt:
-      'I want you to make a one block paragraph which will be used for a typing speed test and you should have 150 to 200 words in your generated response. Only respond with the one block paragraph based on this prompt: ' +
-      text +
-      ', and nothing else. This will be used for a typing speed test so make it in that format.',
+    prompt: `
+      Generate a single paragraph containing 150-200 words based on the following topic: "${text}".
+
+      STRICT RULES:
+      - The output must be ONLY the paragraph.
+      - Do NOT include introductions, explanations, apologies, commentary, or formatting.
+      - Do NOT include quotes around the paragraph.
+      - Do NOT say anything like “Here is your paragraph.”
+      - Do NOT include titles or headings.
+      - Output ONLY the paragraph text itself.
+      - If you cannot follow all rules exactly, output an empty string.`,
     stream: false,
   };
 
@@ -19,6 +26,6 @@ export async function handleInput(text) {
   });
 
   const data = await response.json();
-  console.log('Generated text:\n', data.response);
+  // console.log('Generated text:\n', data.response);
   return data.response;
 }
