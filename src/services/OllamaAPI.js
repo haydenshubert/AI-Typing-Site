@@ -9,7 +9,7 @@ export async function handleInput(text) {
       STRICT RULES:
       - The output must be ONLY the paragraph.
       - Do NOT include introductions, explanations, apologies, commentary, or formatting.
-      - Do NOT include quotes around the paragraph.
+      - Do NOT include any quotation marks.
       - Do NOT say anything like “Here is your paragraph.”
       - Do NOT include titles or headings.
       - Output ONLY the paragraph text itself.

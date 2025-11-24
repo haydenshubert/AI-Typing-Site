@@ -61,19 +61,19 @@ const Test = () => {
 
   return (
     <div className="flex min-h-screen flex-col items-center bg-gray-200">
-      <section className="mt-9 flex w-xl flex-wrap items-center rounded-lg border-2 bg-gray-300">
+      <section className="mt-9 flex w-xl flex-wrap items-center rounded-lg border-2 bg-gray-300 text-xl">
         {words.map((word, i) => (
           <span
             key={i}
             className={
-              'mx-1 text-lg' +
+              'mx-1 text-xl' +
               (i === currentIndex // Handles coloring of words
-                ? 'mx-1 text-lg text-blue-600 underline'
+                ? 'mx-1 text-blue-600 underline'
                 : i < currentIndex
                   ? wordStatus[i] === 'correct'
-                    ? 'mx-1 text-lg text-gray-400'
-                    : 'mx-1 text-lg text-red-400'
-                  : 'mx-1 text-lg text-black')
+                    ? 'mx-1 text-gray-400'
+                    : 'mx-1 text-red-400'
+                  : 'mx-1 text-black')
             }
           >
             {word}{' '}
@@ -84,28 +84,37 @@ const Test = () => {
       {!ready ? (
         <>
           <button
-            className="mt-12 w-16 rounded-lg border-2 border-gray-800 bg-blue-500 p-0.5 text-xl font-bold text-white hover:bg-blue-400"
+            className="mt-12 w-36 rounded-lg border-2 border-gray-800 bg-blue-500 p-0.5 text-xl font-bold text-white hover:bg-blue-400"
             onClick={() => {
               setReady(true);
             }}
           >
-            Start
+            Start Typing
+          </button>
+          <p className="m-6 text-xl font-bold">Or</p>
+          <button
+            className="w-36 rounded-lg border-2 border-gray-800 bg-blue-500 p-0.5 text-xl font-bold text-white hover:bg-blue-400"
+            onClick={() => navigate('/prompt')}
+          >
+            New Prompt
           </button>
         </>
       ) : (
-        <input // Timer starts when first key pressed
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={handleKeyDown}
-          autoFocus
-          disabled={isDisabled}
-          placeholder="Start typing..."
-          spellCheck="false"
-          className="mt-8 h-12 w-64 rounded-lg border-2 border-blue-400 bg-white text-lg"
-        ></input>
+        <>
+          <input // Timer starts when first key pressed
+            type="text"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            autoFocus
+            disabled={isDisabled}
+            placeholder="Start typing..."
+            spellCheck="false"
+            className="mt-8 h-12 w-64 rounded-lg border-2 border-blue-400 bg-white text-lg"
+          ></input>
+          <p className="mt-1 text-lg font-bold">Time: {time}s</p>
+        </>
       )}
-      <p className="mt-1 text-lg font-bold">Time: {time}s</p>
       {isDisabled && (
         <button
           onClick={() => calcResults()}
