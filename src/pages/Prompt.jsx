@@ -25,7 +25,7 @@ const Prompt = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-gray-200 pt-24">
+    <div className="relative flex min-h-screen flex-col items-center bg-gray-200 pt-24">
       {!loading ? (
         <>
           <p className="p-2 text-3xl">
@@ -47,6 +47,28 @@ const Prompt = () => {
           >
             Send Prompt
           </button>
+          <section className="absolute top-120 left-6 h-75 rounded-4xl border-2 p-2.5">
+            <p className="border-b">Story Prompt Example:</p>
+            <p className="mt-4">"Story about Donkey Kong as president"</p>
+            <p className="mt-2 w-80">
+              Donkey Kong, the former nemesis of Mario, stood confidently in the
+              Oval Office as the newly elected President of the United States.
+              His rugged, imposing presence commanded attention from the crowded
+              press corps gathered outside the White House. Despite his
+              unorthodox rise to power, Kong had won over voters with his...
+            </p>
+          </section>
+          <section className="absolute top-120 right-6 h-75 rounded-4xl border-2 p-2.5">
+            <p className="border-b">No Prompt Example:</p>
+            <p className="mt-6 w-80">
+              The human brain is a complex and fascinating organ that continues
+              to puzzle scientists and philosophers alike with its intricacies.
+              One of the most intriguing aspects of the brain is its ability to
+              reorganize itself in response to new experiences and environments.
+              This process, known as neuroplasticity, allows the brain to adapt
+              and change throughout...
+            </p>
+          </section>
         </>
       ) : (
         <div className="flex flex-col items-center">
