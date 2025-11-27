@@ -15,7 +15,7 @@ const Home = () => {
           This site lets the user type about anything they want. All you have to
           do is give a short prompt and then wait a few seconds and a paragraph
           tailored to your prompt will appear. You can type about whatever comes
-          to mind or get a random prompt if you want.
+          to mind or get random generated text by leaving the prompt blank.
         </p>
       </section>
       <button

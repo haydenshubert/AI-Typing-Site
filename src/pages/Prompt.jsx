@@ -25,10 +25,10 @@ const Prompt = () => {
   };
 
   return (
-    <div className="relative flex min-h-screen flex-col items-center bg-gray-200 pt-24">
+    <div className="relative flex min-h-screen flex-col items-center bg-gray-200 pt-16">
       {!loading ? (
         <>
-          <p className="p-2 text-3xl">
+          <p className="p-2 text-3xl font-semibold">
             This is where you will enter your one sentence prompt.
           </p>
           <p className="text-3xl text-gray-400">(75 character limit)</p>
@@ -48,8 +48,10 @@ const Prompt = () => {
             Send Prompt
           </button>
           <section className="absolute top-120 left-6 h-75 rounded-4xl border-2 p-2.5">
-            <p className="border-b">Story Prompt Example:</p>
-            <p className="mt-4">"Story about Donkey Kong as president"</p>
+            <p className="border-b font-bold">Story Prompt Example:</p>
+            <p className="mt-4 italic">
+              "Story about Donkey Kong as president"
+            </p>
             <p className="mt-2 w-80">
               Donkey Kong, the former nemesis of Mario, stood confidently in the
               Oval Office as the newly elected President of the United States.
@@ -59,7 +61,7 @@ const Prompt = () => {
             </p>
           </section>
           <section className="absolute top-120 right-6 h-75 rounded-4xl border-2 p-2.5">
-            <p className="border-b">No Prompt Example:</p>
+            <p className="border-b font-bold">Leaving Prompt Example:</p>
             <p className="mt-6 w-80">
               The human brain is a complex and fascinating organ that continues
               to puzzle scientists and philosophers alike with its intricacies.
