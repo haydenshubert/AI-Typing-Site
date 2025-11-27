@@ -2,4 +2,9 @@
 
 A typing speed test powered by locally generated AI text using an LLM and React
 
-![Demo](./src/assets/videos/DemoVideo.mov)
+**Sending Prompt**
+![Sending Prompt](./src/assets/videos/send-prompt.gif)
+**Starting Typing**
+![Starting Typing](./src/assets/videos/start-typing.gif)
+**Finishing Typing**
+![Finishing Typing](./src/assets/videos/finished-typing.gif)
